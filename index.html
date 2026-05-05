@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Analysis Journal</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <div class="flash" id="flashMessage" hidden></div>
+
+      <section class="auth-shell" id="authShell">
+        <div class="hero-panel">
+          <p class="eyebrow">Analysis Journal</p>
+          <h1>Turn your review habit into a public product.</h1>
+          <p class="hero-copy">
+            Save screenshots, write what you did well and badly, and let the app show
+            your most repeated patterns. Create an account and share your public profile
+            with anyone.
+          </p>
+
+          <div class="hero-metrics">
+            <article>
+              <span>Private workspace</span>
+              <strong>Secure login</strong>
+            </article>
+            <article>
+              <span>Public profile</span>
+              <strong>Shareable link</strong>
+            </article>
+            <article>
+              <span>Auto review</span>
+              <strong>Pattern summary</strong>
+            </article>
+          </div>
+        </div>
+
+        <section class="auth-panel">
+          <div class="auth-toggle">
+            <button class="is-active" type="button" data-auth-mode="login">Login</button>
+            <button type="button" data-auth-mode="signup">Create account</button>
+          </div>
+
+          <form id="authForm" class="auth-form">
+            <div class="auth-copy-block">
+              <p class="eyebrow" id="authEyebrow">Welcome back</p>
+              <h2 id="authHeading">Login to your journal</h2>
+              <p id="authSubcopy">
+                Sign in to manage your analysis library and public profile.
+              </p>
+            </div>
+
+            <label class="signup-only" data-auth-field="signup">
+              Username
+              <input
+                id="signupUsername"
+                type="text"
+                autocomplete="username"
+                placeholder="your-name"
+              />
+            </label>
+
+            <label class="signup-only" data-auth-field="signup">
+              Email
+              <input
+                id="signupEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+              />
+            </label>
+
+            <label class="login-only" data-auth-field="login">
+              Username or email
+              <input
+                id="loginIdentifier"
+                type="text"
+                autocomplete="username"
+                placeholder="your-name or you@example.com"
+              />
+            </label>
+
+            <label>
+              Password
+              <input
+                id="authPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="At least 8 characters"
+              />
+            </label>
+
+            <button class="primary-button" type="submit" id="authSubmitButton">
+              Login
+            </button>
+          </form>
+        </section>
+      </section>
+
+      <section class="dashboard-shell" id="dashboardShell" hidden>
+        <header class="topbar">
+          <div class="headline-block">
+            <p class="eyebrow">Analysis Journal</p>
+            <h1>Build your review edge in public.</h1>
+            <p class="lede">
+              Every saved analysis sharpens your private notes and updates your public
+              profile for the entries you choose to share.
+            </p>
+          </div>
+
+          <div class="topbar-actions">
+            <a class="ghost-button" id="publicProfileLink" href="#" target="_blank" rel="noreferrer"
+              >Open public profile</a
+            >
+            <button class="ghost-button" type="button" id="copyShareButton">
+              Copy share link
+            </button>
+            <button class="ghost-button" type="button" id="logoutButton">Logout</button>
+          </div>
+        </header>
+
+        <section class="summary-grid" aria-label="Analysis summary">
+          <article class="metric-panel accent-blue">
+            <span class="metric-label">Saved analysis</span>
+            <strong id="totalCount">0</strong>
+            <small id="balanceText">Start by saving your first analysis.</small>
+          </article>
+          <article class="metric-panel accent-green">
+            <span class="metric-label">Good notes logged</span>
+            <strong id="goodNotesTotal">0</strong>
+            <small>Every line in goods becomes one tracked strength.</small>
+          </article>
+          <article class="metric-panel accent-coral">
+            <span class="metric-label">Bad notes logged</span>
+            <strong id="badNotesTotal">0</strong>
+            <small>Every line in bads becomes one tracked mistake.</small>
+          </article>
+          <article class="metric-panel accent-gold">
+            <span class="metric-label">Public entries</span>
+            <strong id="publicEntryTotal">0</strong>
+            <small id="edgeCaption">Choose public visibility when you want to share.</small>
+          </article>
+        </section>
+
+        <section class="story-panel">
+          <div>
+            <p class="eyebrow">Auto Summary</p>
+            <h2 id="summaryHeadline">Your repeated habits will appear here.</h2>
+          </div>
+          <p id="summaryNarrative">
+            Add a few analyses and the app will tell you what you do well most often
+            and which mistake keeps showing up.
+          </p>
+        </section>
+
+        <section class="content-grid">
+          <form class="editor-panel" id="analysisForm">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">New Entry</p>
+                <h2>Log an analysis</h2>
+              </div>
+            </div>
+
+            <input type="hidden" id="entryId" />
+
+            <div class="form-row two-col">
+              <label>
+                Analysis title
+                <input
+                  id="titleInput"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Example: Nifty breakout setup"
+                  required
+                />
+              </label>
+              <label>
+                Date
+                <input id="dateInput" type="date" required />
+              </label>
+            </div>
+
+            <div class="form-row two-col">
+              <label>
+                Visibility
+                <select id="visibilityInput">
+                  <option value="private">Private</option>
+                  <option value="public">Public</option>
+                </select>
+              </label>
+              <label>
+                Share handle
+                <input id="usernamePreview" type="text" disabled />
+              </label>
+            </div>
+
+            <div class="upload-stack">
+              <label class="upload-box" id="uploadBox">
+                <input type="file" id="imageInput" accept="image/*" />
+                <span class="upload-copy" id="uploadCopy">Drop screenshot or click to add</span>
+                <img id="imagePreview" alt="Selected analysis screenshot preview" hidden />
+              </label>
+              <div class="upload-meta-row">
+                <p class="upload-meta" id="imageMeta">
+                  PNG, JPG, or WEBP. Images are resized locally before saving.
+                </p>
+                <button class="ghost-button" type="button" id="removeImageButton" disabled>
+                  Remove screenshot
+                </button>
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <label>
+                Goods
+                <textarea
+                  id="goodsInput"
+                  rows="8"
+                  placeholder="One point per line. Example: Waited for the retest before entry"
+                ></textarea>
+                <small class="field-hint"
+                  >Use a new line, comma, or semicolon for each good point.</small
+                >
+              </label>
+              <label>
+                Bads
+                <textarea
+                  id="badsInput"
+                  rows="8"
+                  placeholder="One point per line. Example: Entered early before confirmation"
+                ></textarea>
+                <small class="field-hint"
+                  >Write the mistakes you want the summary to catch next time.</small
+                >
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-button" type="submit" id="saveButton">Save analysis</button>
+              <button class="ghost-button" type="button" id="resetButton">Clear</button>
+            </div>
+          </form>
+
+          <aside class="patterns-panel" aria-label="Repeated patterns">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Pattern Radar</p>
+                <h2>What you repeat most</h2>
+              </div>
+            </div>
+
+            <div class="pattern-leads">
+              <article class="pattern-lead">
+                <span>Most repeated good</span>
+                <strong id="topGood">-</strong>
+                <small id="topGoodCount">No pattern yet</small>
+              </article>
+              <article class="pattern-lead">
+                <span>Most repeated bad</span>
+                <strong id="topBad">-</strong>
+                <small id="topBadCount">No pattern yet</small>
+              </article>
+            </div>
+
+            <div class="pattern-columns">
+              <section>
+                <h3>Good patterns</h3>
+                <ol class="pattern-list" id="goodPatternList"></ol>
+              </section>
+              <section>
+                <h3>Bad patterns</h3>
+                <ol class="pattern-list" id="badPatternList"></ol>
+              </section>
+            </div>
+          </aside>
+        </section>
+
+        <section class="library-panel" aria-label="Saved analyses">
+          <div class="library-header">
+            <div>
+              <p class="eyebrow">Library</p>
+              <h2>Saved analysis</h2>
+            </div>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search title, goods, bads, or date"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="entry-list" id="entryList"></div>
+          <p class="empty-state" id="emptyState">No analysis saved yet.</p>
+        </section>
+      </section>
+    </main>
+
+    <template id="entryTemplate">
+      <article class="entry-card">
+        <button class="entry-media" type="button" data-action="view-image">
+          <img alt="" />
+          <span>No screenshot</span>
+        </button>
+        <div class="entry-body">
+          <div class="entry-head">
+            <div>
+              <div class="entry-title-row">
+                <h3></h3>
+                <span class="visibility-pill" data-field="visibility"></span>
+              </div>
+              <p></p>
+            </div>
+            <div class="entry-actions">
+              <button type="button" data-action="edit">Edit</button>
+              <button type="button" data-action="delete">Delete</button>
+            </div>
+          </div>
+
+          <dl class="note-counts">
+            <div>
+              <dt>Goods</dt>
+              <dd data-field="goodCount">0</dd>
+            </div>
+            <div>
+              <dt>Bads</dt>
+              <dd data-field="badCount">0</dd>
+            </div>
+          </dl>
+
+          <div class="entry-tags">
+            <section>
+              <span class="tag-title">Goods</span>
+              <div class="tag-list" data-field="goodTags"></div>
+            </section>
+            <section>
+              <span class="tag-title">Bads</span>
+              <div class="tag-list" data-field="badTags"></div>
+            </section>
+          </div>
+
+          <div class="entry-notes">
+            <p data-field="goods"></p>
+            <p data-field="bads"></p>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <dialog id="imageDialog" class="image-dialog">
+      <button type="button" id="closeDialog">Close</button>
+      <img alt="Saved analysis screenshot" id="dialogImage" />
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

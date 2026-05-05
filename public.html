@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Analysis Journal Public Profile</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell public-page-shell">
+      <section class="public-hero">
+        <div>
+          <p class="eyebrow">Public Analysis Journal</p>
+          <h1 id="publicHeading">@profile</h1>
+          <p class="hero-copy" id="publicSubcopy">
+            Public analysis entries and repeated patterns will appear here.
+          </p>
+        </div>
+        <a class="ghost-button" href="/">Open the app</a>
+      </section>
+
+      <section class="summary-grid" aria-label="Public summary">
+        <article class="metric-panel accent-blue">
+          <span class="metric-label">Public analysis</span>
+          <strong id="publicTotalCount">0</strong>
+          <small id="publicBalanceText">No public analysis yet.</small>
+        </article>
+        <article class="metric-panel accent-green">
+          <span class="metric-label">Good notes logged</span>
+          <strong id="publicGoodNotesTotal">0</strong>
+          <small>Strengths tracked across public entries.</small>
+        </article>
+        <article class="metric-panel accent-coral">
+          <span class="metric-label">Bad notes logged</span>
+          <strong id="publicBadNotesTotal">0</strong>
+          <small>Mistakes tracked across public entries.</small>
+        </article>
+        <article class="metric-panel accent-gold">
+          <span class="metric-label">Most repeated edge</span>
+          <strong id="publicTopPattern">-</strong>
+          <small id="publicTopPatternCount">No pattern yet.</small>
+        </article>
+      </section>
+
+      <section class="story-panel">
+        <div>
+          <p class="eyebrow">Public Summary</p>
+          <h2 id="publicSummaryHeadline">No public patterns yet.</h2>
+        </div>
+        <p id="publicSummaryNarrative">
+          Once public entries are shared, this page will show the most repeated strengths
+          and mistakes.
+        </p>
+      </section>
+
+      <section class="library-panel">
+        <div class="library-header">
+          <div>
+            <p class="eyebrow">Public Library</p>
+            <h2>Shared analysis</h2>
+          </div>
+        </div>
+
+        <div class="entry-list" id="publicEntryList"></div>
+        <p class="empty-state is-visible" id="publicEmptyState">No public analysis shared yet.</p>
+      </section>
+    </main>
+
+    <template id="publicEntryTemplate">
+      <article class="entry-card">
+        <div class="entry-media public-media">
+          <img alt="" />
+          <span>No screenshot</span>
+        </div>
+        <div class="entry-body">
+          <div class="entry-head">
+            <div>
+              <div class="entry-title-row">
+                <h3></h3>
+                <span class="visibility-pill public-pill">Public</span>
+              </div>
+              <p></p>
+            </div>
+          </div>
+
+          <dl class="note-counts">
+            <div>
+              <dt>Goods</dt>
+              <dd data-field="goodCount">0</dd>
+            </div>
+            <div>
+              <dt>Bads</dt>
+              <dd data-field="badCount">0</dd>
+            </div>
+          </dl>
+
+          <div class="entry-tags">
+            <section>
+              <span class="tag-title">Goods</span>
+              <div class="tag-list" data-field="goodTags"></div>
+            </section>
+            <section>
+              <span class="tag-title">Bads</span>
+              <div class="tag-list" data-field="badTags"></div>
+            </section>
+          </div>
+
+          <div class="entry-notes">
+            <p data-field="goods"></p>
+            <p data-field="bads"></p>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="public.js"></script>
+  </body>
+</html>
